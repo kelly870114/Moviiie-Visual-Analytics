@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 function generateData(baseval, count, yrange) {
  var i = 0;
  var series = [];
@@ -13,6 +15,7 @@ function generateData(baseval, count, yrange) {
  }
  return series;
 }
+
 
 // Daily Traffic Dashboards Default
 
@@ -270,7 +273,11 @@ export const bubbleChartData = [
  {
   name: "Bubble 0",
   // [x(revenue), y(budget), size(rating)]
-  data: [[45, 30, 20],[10,10,10],[50,50,50]],
+  data: [
+   [45, 30, 20],
+   [10, 10, 10],
+   [50, 50, 50],
+  ],
  },
  {
   name: "Bubble 1",

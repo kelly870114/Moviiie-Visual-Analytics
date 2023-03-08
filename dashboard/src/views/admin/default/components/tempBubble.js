@@ -13,7 +13,6 @@ import Card from "components/card/Card.js";
 import BubbleChart from "components/charts/BubbleChart";
 import React from "react";
 import { bubbleChartData, bubbleChartOption } from "variables/charts";
-import InputField from "components/fields/InputField";
 
 export default function MovieOverview(props) {
  const { ...rest } = props;
