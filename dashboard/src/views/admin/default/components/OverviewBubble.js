@@ -42,14 +42,6 @@ export default function MovieOverview(props) {
  //   setFilteredData(newFilteredData);
  //  };
 
- const [category, setCategory] = useState([]);
- const [data, setData] = useState([]);
- const [post, setPost] = useState(null);
- useEffect(() => {
-  axios.get("http://localhost:5000/getMovieOverview").then((response) => {
-   setPost(response.data);
-  });
- }, []);
  //  useEffect(() => {
  //   const movieData = [];
  //   const movieName = [];
@@ -72,6 +64,31 @@ export default function MovieOverview(props) {
  //    });
  //  }, []);
 
+ // new line start
+ const [profileData, setProfileData] = useState(null);
+
+ function getData() {
+  axios({
+   method: "GET",
+   url: "http://127.0.0.1:5000/getMovieOverview",
+  })
+   .then((response) => {
+    const res = response.data;
+    setProfileData({
+     movie_name: res[0].movie_name,
+     movie_budget: res[0].movie_budget,
+    });
+   })
+   .catch((error) => {
+    if (error.response) {
+     console.log(error.response);
+     console.log(error.response.status);
+     console.log(error.response.headers);
+    }
+   });
+ }
+ //end of new line
+
  return (
   <Card align="center" direction="column" w="100%" {...rest}>
    <Flex align="center" w="100%" px="15px" py="10px">
@@ -87,6 +104,16 @@ export default function MovieOverview(props) {
    </Flex>
 
    <Box h="400px" mt="auto">
+    {/* new line start*/}
+    <p>To get your profile details: </p>
+    <Button onClick={getData}>Click me</Button>
+    {profileData && (
+     <div>
+      <p>Movie name: {profileData.movie_name}</p>
+      <p>About me: {profileData.movie_budget}</p>
+     </div>
+    )}
+    {/* end of new line */}
     <Flex>
      {/* <Box>
       <Input
