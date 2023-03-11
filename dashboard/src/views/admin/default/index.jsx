@@ -52,8 +52,8 @@ export default function UserReports() {
 
  const options = {
   hideTabs: true,
-  hideToolbar: true
-};
+  hideToolbar: true,
+ };
 
  function getData() {
   axios({
@@ -81,10 +81,17 @@ export default function UserReports() {
   <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
     <Tableau
-     url="https://public.tableau.com/views/MoviesOverview_16784935676620/2?:language=zh-TW&publish=yes&:display_count=n&:origin=viz_share_link"
+     url="https://public.tableau.com/views/MoviesOverview_16784935676620/MoviesOverview?:language=zh-TW&publish=yes&:display_count=n&:origin=viz_share_link"
      options={options}
     />
    </SimpleGrid>
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Tableau
+     url="https://public.tableau.com/views/ProfitForEachGenreAcrossYears/1?:language=zh-TW&publish=yes&:display_count=n&:origin=viz_share_link"
+     options={options}
+    />
+   </SimpleGrid>
+
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
     <OverviewWordCloud />
    </SimpleGrid>

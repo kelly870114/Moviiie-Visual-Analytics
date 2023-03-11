@@ -1,17 +1,17 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 
 // Chakra imports
 import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Link,
-  Text,
-  useColorModeValue,
-  SimpleGrid,
+ Box,
+ Button,
+ Flex,
+ Grid,
+ Link,
+ Text,
+ useColorModeValue,
+ SimpleGrid,
+ Image,
 } from "@chakra-ui/react";
-
 // Custom components
 import Banner from "views/admin/marketplace/components/Banner";
 import TableTopCreators from "views/admin/marketplace/components/TableTopCreators";
@@ -30,254 +30,348 @@ import Avatar1 from "assets/img/avatars/avatar1.png";
 import Avatar2 from "assets/img/avatars/avatar2.png";
 import Avatar3 from "assets/img/avatars/avatar3.png";
 import Avatar4 from "assets/img/avatars/avatar4.png";
+import Usa from "assets/img/dashboards/usa.png";
+import MiniStatistics from "components/card/MiniStatistics";
+import IconBox from "components/icons/IconBox";
 import tableDataTopCreators from "views/admin/marketplace/variables/tableDataTopCreators.json";
 import { tableColumnsTopCreators } from "views/admin/marketplace/variables/tableColumnsTopCreators";
+import axios from "axios";
+import AdminNavbarLinks from "components/navbar/NavbarLinksAdmin";
+import { SearchBar } from "components/navbar/searchBar/SearchBar";
 
-export default function Marketplace() {
-  // Chakra Color Mode
-  const textColor = useColorModeValue("secondaryGray.900", "white");
-  const textColorBrand = useColorModeValue("brand.500", "white");
-  return (
-    <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
-      {/* Main Fields */}
-      <Grid
-        mb='20px'
-        gridTemplateColumns={{ xl: "repeat(3, 1fr)", "2xl": "1fr 0.46fr" }}
-        gap={{ base: "20px", xl: "20px" }}
-        display={{ base: "block", xl: "grid" }}>
-        <Flex
-          flexDirection='column'
-          gridArea={{ xl: "1 / 1 / 2 / 3", "2xl": "1 / 1 / 2 / 2" }}>
-          <Banner />
-          <Flex direction='column'>
-            <Flex
-              mt='45px'
-              mb='20px'
-              justifyContent='space-between'
-              direction={{ base: "column", md: "row" }}
-              align={{ base: "start", md: "center" }}>
-              <Text color={textColor} fontSize='2xl' ms='24px' fontWeight='700'>
-                Trending NFTs
-              </Text>
-              <Flex
-                align='center'
-                me='20px'
-                ms={{ base: "24px", md: "0px" }}
-                mt={{ base: "20px", md: "0px" }}>
-                <Link
-                  color={textColorBrand}
-                  fontWeight='500'
-                  me={{ base: "34px", md: "44px" }}
-                  to='#art'>
-                  Art
-                </Link>
-                <Link
-                  color={textColorBrand}
-                  fontWeight='500'
-                  me={{ base: "34px", md: "44px" }}
-                  to='#music'>
-                  Music
-                </Link>
-                <Link
-                  color={textColorBrand}
-                  fontWeight='500'
-                  me={{ base: "34px", md: "44px" }}
-                  to='#collectibles'>
-                  Collectibles
-                </Link>
-                <Link color={textColorBrand} fontWeight='500' to='#sports'>
-                  Sports
-                </Link>
-              </Flex>
-            </Flex>
-            <SimpleGrid columns={{ base: 1, md: 3 }} gap='20px'>
-              <NFT
-                name='Abstract Colors'
-                author='By Esthera Jackson'
-                bidders={[
-                  Avatar1,
-                  Avatar2,
-                  Avatar3,
-                  Avatar4,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                ]}
-                image={Nft1}
-                currentbid='0.91 ETH'
-                download='#'
-              />
-              <NFT
-                name='ETH AI Brain'
-                author='By Nick Wilson'
-                bidders={[
-                  Avatar1,
-                  Avatar2,
-                  Avatar3,
-                  Avatar4,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                ]}
-                image={Nft2}
-                currentbid='0.91 ETH'
-                download='#'
-              />
-              <NFT
-                name='Mesh Gradients '
-                author='By Will Smith'
-                bidders={[
-                  Avatar1,
-                  Avatar2,
-                  Avatar3,
-                  Avatar4,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                ]}
-                image={Nft3}
-                currentbid='0.91 ETH'
-                download='#'
-              />
-            </SimpleGrid>
-            <Text
-              mt='45px'
-              mb='36px'
-              color={textColor}
-              fontSize='2xl'
-              ms='24px'
-              fontWeight='700'>
-              Recently Added
-            </Text>
-            <SimpleGrid
-              columns={{ base: 1, md: 3 }}
-              gap='20px'
-              mb={{ base: "20px", xl: "0px" }}>
-              <NFT
-                name='Swipe Circles'
-                author='By Peter Will'
-                bidders={[
-                  Avatar1,
-                  Avatar2,
-                  Avatar3,
-                  Avatar4,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                ]}
-                image={Nft4}
-                currentbid='0.91 ETH'
-                download='#'
-              />
-              <NFT
-                name='Colorful Heaven'
-                author='By Mark Benjamin'
-                bidders={[
-                  Avatar1,
-                  Avatar2,
-                  Avatar3,
-                  Avatar4,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                ]}
-                image={Nft5}
-                currentbid='0.91 ETH'
-                download='#'
-              />
-              <NFT
-                name='3D Cubes Art'
-                author='By Manny Gates'
-                bidders={[
-                  Avatar1,
-                  Avatar2,
-                  Avatar3,
-                  Avatar4,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                  Avatar1,
-                ]}
-                image={Nft6}
-                currentbid='0.91 ETH'
-                download='#'
-              />
-            </SimpleGrid>
-          </Flex>
-        </Flex>
-        <Flex
-          flexDirection='column'
-          gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}>
-          <Card px='0px' mb='20px'>
-            <TableTopCreators
-              tableData={tableDataTopCreators}
-              columnsData={tableColumnsTopCreators}
-            />
-          </Card>
-          <Card p='0px'>
-            <Flex
-              align={{ sm: "flex-start", lg: "center" }}
-              justify='space-between'
-              w='100%'
-              px='22px'
-              py='18px'>
-              <Text color={textColor} fontSize='xl' fontWeight='600'>
-                History
-              </Text>
-              <Button variant='action'>See all</Button>
-            </Flex>
+export default function Marketplace(props) {
+ // Chakra Color Mode
+ const brandColor = useColorModeValue("brand.500", "white");
+ const textColor = useColorModeValue("secondaryGray.900", "white");
+ const textColorBrand = useColorModeValue("brand.500", "white");
+ const boxBg = useColorModeValue("secondaryGray.300", "whiteAlpha.100");
+ let menuBg = useColorModeValue("white", "navy.800");
+ const [products, setProducts] = useState([]);
+ const shadow = useColorModeValue(
+  "14px 17px 40px 4px rgba(112, 144, 176, 0.18)",
+  "14px 17px 40px 4px rgba(112, 144, 176, 0.06)"
+ );
+ const { secondary } = props;
+ const [movieBudget, setMovieBudget] = useState("0");
+ const [movieName, setMovieName] = useState("");
 
-            <HistoryItem
-              name='Colorful Heaven'
-              author='By Mark Benjamin'
-              date='30s ago'
-              image={Nft5}
-              price='0.91 ETH'
-            />
-            <HistoryItem
-              name='Abstract Colors'
-              author='By Esthera Jackson'
-              date='58s ago'
-              image={Nft1}
-              price='0.91 ETH'
-            />
-            <HistoryItem
-              name='ETH AI Brain'
-              author='By Nick Wilson'
-              date='1m ago'
-              image={Nft2}
-              price='0.91 ETH'
-            />
-            <HistoryItem
-              name='Swipe Circles'
-              author='By Peter Will'
-              date='1m ago'
-              image={Nft4}
-              price='0.91 ETH'
-            />
-            <HistoryItem
-              name='Mesh Gradients '
-              author='By Will Smith'
-              date='2m ago'
-              image={Nft3}
-              price='0.91 ETH'
-            />
-            <HistoryItem
-              name='3D Cubes Art'
-              author='By Manny Gates'
-              date='3m ago'
-              image={Nft6}
-              price='0.91 ETH'
-            />
-          </Card>
-        </Flex>
-      </Grid>
-      {/* Delete Product */}
-    </Box>
-  );
+ const handleMovieBudgetChange = (budget) => {
+   setMovieBudget(budget);
+ };
+ const handleMovieNameChange = (name) => {
+  setMovieName(name);
+ }
+ const fetchProducts = async () => {
+  const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
+  const products = data;
+  setProducts(products);
+  console.log(products);
+ };
+ useEffect(() => {
+  fetchProducts();
+ }, []);
+
+ return (
+  <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
+    <SimpleGrid
+     columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
+     gap="20px"
+     mb="20px"
+    >
+   <Flex
+    w={{ sm: "100%", md: "auto" }}
+    alignItems="center"
+    flexDirection="row"
+    bg={menuBg}
+    flexWrap={secondary ? { base: "wrap", md: "nowrap" } : "unset"}
+    p="10px"
+    borderRadius="30px"
+    boxShadow={shadow}
+   >
+    
+     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange}
+     />
+    <h2>Movie Budget: {movieBudget}</h2>
+    <h2>Movie Name: {movieName}</h2>
+   </Flex>
+   </SimpleGrid>
+   <SimpleGrid
+    columns={{ base: 1, md: 2, lg: 3, "2xl": 6 }}
+    gap="20px"
+    mb="20px"
+   >
+    <MiniStatistics
+     name="Movie Name"
+     value={movieName}
+     onMovieNameChange={handleMovieNameChange}
+     //  value={products.map((product) => (
+     //   <p>{product.movie_name}, {product.movie_budget}</p>
+     //  ))}
+    />
+    <MiniStatistics
+     name="Movie Casts"
+     value="Actor 1"
+     //  value={products.map((product) => (
+     //   <p>{product.movie_star1}, {product.movie_star2}</p>
+     //  ))}
+    />
+    <MiniStatistics name="Moive Genre" value="Action" />
+   </SimpleGrid>
+   {/* Main Fields */}
+   <Grid
+    mb="20px"
+    gridTemplateColumns={{ xl: "repeat(3, 1fr)", "2xl": "1fr 0.46fr" }}
+    gap={{ base: "20px", xl: "20px" }}
+    display={{ base: "block", xl: "grid" }}
+   >
+    <Flex
+     flexDirection="column"
+     gridArea={{ xl: "1 / 1 / 2 / 3", "2xl": "1 / 1 / 2 / 2" }}
+    >
+     {/* <Image
+      src="https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_UX67_CR0,0,67,98_AL_.jpg"
+      alt="Dan Abramov"
+      objectFit='cover'
+     /> */}
+     <Banner />
+     <Flex direction="column">
+      <Flex
+       mt="45px"
+       mb="20px"
+       justifyContent="space-between"
+       direction={{ base: "column", md: "row" }}
+       align={{ base: "start", md: "center" }}
+      >
+       <Text color={textColor} fontSize="2xl" ms="24px" fontWeight="700">
+        Trending NFTs
+       </Text>
+       <Flex
+        align="center"
+        me="20px"
+        ms={{ base: "24px", md: "0px" }}
+        mt={{ base: "20px", md: "0px" }}
+       >
+        <Link
+         color={textColorBrand}
+         fontWeight="500"
+         me={{ base: "34px", md: "44px" }}
+         to="#art"
+        >
+         Art
+        </Link>
+        <Link
+         color={textColorBrand}
+         fontWeight="500"
+         me={{ base: "34px", md: "44px" }}
+         to="#music"
+        >
+         Music
+        </Link>
+        <Link
+         color={textColorBrand}
+         fontWeight="500"
+         me={{ base: "34px", md: "44px" }}
+         to="#collectibles"
+        >
+         Collectibles
+        </Link>
+        <Link color={textColorBrand} fontWeight="500" to="#sports">
+         Sports
+        </Link>
+       </Flex>
+      </Flex>
+      <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
+       <NFT
+        name="Abstract Colors"
+        author="By Esthera Jackson"
+        bidders={[
+         Avatar1,
+         Avatar2,
+         Avatar3,
+         Avatar4,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+        ]}
+        image={Nft1}
+        currentbid="0.91 ETH"
+        download="#"
+       />
+       <NFT
+        name="ETH AI Brain"
+        author="By Nick Wilson"
+        bidders={[
+         Avatar1,
+         Avatar2,
+         Avatar3,
+         Avatar4,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+        ]}
+        image={Nft2}
+        currentbid="0.91 ETH"
+        download="#"
+       />
+       <NFT
+        name="Mesh Gradients "
+        author="By Will Smith"
+        bidders={[
+         Avatar1,
+         Avatar2,
+         Avatar3,
+         Avatar4,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+        ]}
+        image={Nft3}
+        currentbid="0.91 ETH"
+        download="#"
+       />
+      </SimpleGrid>
+      <Text
+       mt="45px"
+       mb="36px"
+       color={textColor}
+       fontSize="2xl"
+       ms="24px"
+       fontWeight="700"
+      >
+       Recently Added
+      </Text>
+      <SimpleGrid
+       columns={{ base: 1, md: 3 }}
+       gap="20px"
+       mb={{ base: "20px", xl: "0px" }}
+      >
+       <NFT
+        name="Swipe Circles"
+        author="By Peter Will"
+        bidders={[
+         Avatar1,
+         Avatar2,
+         Avatar3,
+         Avatar4,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+        ]}
+        image={Nft4}
+        currentbid="0.91 ETH"
+        download="#"
+       />
+       <NFT
+        name="Colorful Heaven"
+        author="By Mark Benjamin"
+        bidders={[
+         Avatar1,
+         Avatar2,
+         Avatar3,
+         Avatar4,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+        ]}
+        image={Nft5}
+        currentbid="0.91 ETH"
+        download="#"
+       />
+       <NFT
+        name="3D Cubes Art"
+        author="By Manny Gates"
+        bidders={[
+         Avatar1,
+         Avatar2,
+         Avatar3,
+         Avatar4,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+         Avatar1,
+        ]}
+        image={Nft6}
+        currentbid="0.91 ETH"
+        download="#"
+       />
+      </SimpleGrid>
+     </Flex>
+    </Flex>
+    <Flex
+     flexDirection="column"
+     gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}
+    >
+     <Card px="0px" mb="20px">
+      <TableTopCreators
+       tableData={tableDataTopCreators}
+       columnsData={tableColumnsTopCreators}
+      />
+     </Card>
+     <Card p="0px">
+      <Flex
+       align={{ sm: "flex-start", lg: "center" }}
+       justify="space-between"
+       w="100%"
+       px="22px"
+       py="18px"
+      >
+       <Text color={textColor} fontSize="xl" fontWeight="600">
+        History
+       </Text>
+       <Button variant="action">See all</Button>
+      </Flex>
+
+      <HistoryItem
+       name="Colorful Heaven"
+       author="By Mark Benjamin"
+       date="30s ago"
+       image={Nft5}
+       price="0.91 ETH"
+      />
+      <HistoryItem
+       name="Abstract Colors"
+       author="By Esthera Jackson"
+       date="58s ago"
+       image={Nft1}
+       price="0.91 ETH"
+      />
+      <HistoryItem
+       name="ETH AI Brain"
+       author="By Nick Wilson"
+       date="1m ago"
+       image={Nft2}
+       price="0.91 ETH"
+      />
+      <HistoryItem
+       name="Swipe Circles"
+       author="By Peter Will"
+       date="1m ago"
+       image={Nft4}
+       price="0.91 ETH"
+      />
+      <HistoryItem
+       name="Mesh Gradients "
+       author="By Will Smith"
+       date="2m ago"
+       image={Nft3}
+       price="0.91 ETH"
+      />
+      <HistoryItem
+       name="3D Cubes Art"
+       author="By Manny Gates"
+       date="3m ago"
+       image={Nft6}
+       price="0.91 ETH"
+      />
+     </Card>
+    </Flex>
+   </Grid>
+   {/* Delete Product */}
+  </Box>
+ );
 }
