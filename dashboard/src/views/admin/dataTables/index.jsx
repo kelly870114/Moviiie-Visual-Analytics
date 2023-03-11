@@ -34,6 +34,11 @@ export default function Settings() {
         options={options}
       />
 
+      <Tableau
+        url="https://public.tableau.com/views/barchart_actorProfit/AverageProfitForTheActors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
+        options={options}
+      />
+
       <SimpleGrid
         mb='20px'
         columns={{ sm: 1, md: 2 }}
