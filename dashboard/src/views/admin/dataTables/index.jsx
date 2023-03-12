@@ -35,11 +35,6 @@ export default function Settings() {
       />
 
       <Tableau
-        url="https://public.tableau.com/views/barchart_actorProfit/AverageProfitForTop20Actors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
-        options={options}
-      />
-
-      <Tableau
         url="https://public.tableau.com/views/barchart_directorProfit/ProfitForTop20Directors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
         options={options}
       />
