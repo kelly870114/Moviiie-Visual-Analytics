@@ -30,6 +30,10 @@ export default function Settings() {
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       
       <Tableau
+        url="https://public.tableau.com/views/heatmap_moviestar_top20/Top20MovieStarsConnection?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
+      />
+
+      <Tableau
         url="https://public.tableau.com/views/barchart_actorProfit/ProfitForTop20Actors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
         options={options}
       />
