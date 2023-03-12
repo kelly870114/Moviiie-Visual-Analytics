@@ -22,12 +22,13 @@ const options = {
   transitionDuration: 1000
 };
 
+
 class WordCloud extends React.Component {
     render() {
         return (
             <div>
                 <div style={{ height: 400, width: 600 }}>
-                <ReactWordcloud options={options} words={words} />
+                <ReactWordcloud options={options} words={words[0]} />
                 </div>
             </div>
         );

@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from "react";
+import ReactWordcloud from "react-wordcloud";
 
 // Chakra imports
 import {
@@ -20,24 +21,25 @@ import NFT from "components/card/NFT";
 import Card from "components/card/Card.js";
 
 // Assets
-import Nft1 from "assets/img/nfts/Nft1.png";
-import Nft2 from "assets/img/nfts/Nft2.png";
-import Nft3 from "assets/img/nfts/Nft3.png";
-import Nft4 from "assets/img/nfts/Nft4.png";
-import Nft5 from "assets/img/nfts/Nft5.png";
-import Nft6 from "assets/img/nfts/Nft6.png";
-import Avatar1 from "assets/img/avatars/avatar1.png";
-import Avatar2 from "assets/img/avatars/avatar2.png";
-import Avatar3 from "assets/img/avatars/avatar3.png";
-import Avatar4 from "assets/img/avatars/avatar4.png";
-import Usa from "assets/img/dashboards/usa.png";
+// import Nft1 from "assets/img/nfts/Nft1.png";
+// import Nft2 from "assets/img/nfts/Nft2.png";
+// import Nft3 from "assets/img/nfts/Nft3.png";
+// import Nft4 from "assets/img/nfts/Nft4.png";
+// import Nft5 from "assets/img/nfts/Nft5.png";
+// import Nft6 from "assets/img/nfts/Nft6.png";
+// import Avatar1 from "assets/img/avatars/avatar1.png";
+// import Avatar2 from "assets/img/avatars/avatar2.png";
+// import Avatar3 from "assets/img/avatars/avatar3.png";
+// import Avatar4 from "assets/img/avatars/avatar4.png";
+// import Usa from "assets/img/dashboards/usa.png";
 import MiniStatistics from "components/card/MiniStatistics";
-import IconBox from "components/icons/IconBox";
-import tableDataTopCreators from "views/admin/marketplace/variables/tableDataTopCreators.json";
-import { tableColumnsTopCreators } from "views/admin/marketplace/variables/tableColumnsTopCreators";
+// import IconBox from "components/icons/IconBox";
+// import tableDataTopCreators from "views/admin/marketplace/variables/tableDataTopCreators.json";
+// import { tableColumnsTopCreators } from "views/admin/marketplace/variables/tableColumnsTopCreators";
 import axios from "axios";
 import AdminNavbarLinks from "components/navbar/NavbarLinksAdmin";
 import { SearchBar } from "components/navbar/searchBar/SearchBar";
+import WordCloud from "components/charts/WordCloud";
 
 export default function Marketplace(props) {
  // Chakra Color Mode
@@ -52,14 +54,22 @@ export default function Marketplace(props) {
   "14px 17px 40px 4px rgba(112, 144, 176, 0.06)"
  );
  const { secondary } = props;
- const [movieBudget, setMovieBudget] = useState("0");
+ const [movieBudget, setMovieBudget] = useState("1");
  const [movieName, setMovieName] = useState("");
+ const [movieCloud, setMovieCloud] = useState("");
+ const [cloudResult, setcloudResult] = useState("No Result");
 
  const handleMovieBudgetChange = (budget) => {
    setMovieBudget(budget);
  };
  const handleMovieNameChange = (name) => {
   setMovieName(name);
+ }
+ const handleMovieReviewClick = (words) => {
+  setMovieCloud(words);
+ }
+ const handleMovieReviewResultClick = (result) => {
+  setcloudResult(result);
  }
  const fetchProducts = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
@@ -70,6 +80,25 @@ export default function Marketplace(props) {
  useEffect(() => {
   fetchProducts();
  }, []);
+
+ // WordCloud options
+ const { ...rest } = props;
+//  const textColor = useColorModeValue("secondaryGray.900", "white");
+ const options = {
+  colors: ["#359de6", "#fc9f4c", "#89c789", "#d98080", "#b584e0", "#d1a097"],
+  enableTooltip: true,
+  deterministic: false,
+  fontFamily: "impact",
+  fontSizes: [5, 60],
+  fontStyle: "normal",
+  fontWeight: "normal",
+  padding: 1,
+  rotations: 3,
+  rotationAngles: [0, 90],
+  scale: "sqrt",
+  spiral: "archimedean",
+  transitionDuration: 1000
+};
 
  return (
   <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
@@ -89,7 +118,7 @@ export default function Marketplace(props) {
     boxShadow={shadow}
    >
     
-     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange}
+     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange} onMovieReviewClick={handleMovieReviewClick} onMovieReviewResultClick={handleMovieReviewResultClick}
      />
     <h2>Movie Budget: {movieBudget}</h2>
     <h2>Movie Name: {movieName}</h2>
@@ -117,8 +146,42 @@ export default function Marketplace(props) {
     />
     <MiniStatistics name="Moive Genre" value="Action" />
    </SimpleGrid>
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Card align="center" direction="column" w="100%" {...rest}>
+      <Flex align="center" w="100%" px="15px" py="10px">
+        <Text
+        me="auto"
+        color={textColor}
+        fontSize="xl"
+        fontWeight="700"
+        lineHeight="100%"
+        >
+        Movie Reviews Wordcloud
+        </Text>
+      </Flex>
+
+      <Box h="400px" mt="auto">
+        <Flex>
+            <Box>
+            <div>
+              <Text onMovieReviewResultClick={handleMovieReviewResultClick}>{cloudResult}</Text>
+              <div style={{ height: 400, width: 600 }}>
+                <ReactWordcloud options={options} onMovieReviewClick={handleMovieReviewClick} words={movieCloud} />
+              </div>
+          </div>
+            </Box>
+        </Flex>
+      </Box>
+    </Card>
+      {/* <div>
+          <div style={{ height: 400, width: 600 }}>
+          <ReactWordcloud options={options} onMovieReviewClick={handleMovieReviewClick} words={movieCloud} />
+          </div>
+      </div> */}
+   </SimpleGrid>
+
    {/* Main Fields */}
-   <Grid
+   {/* <Grid
     mb="20px"
     gridTemplateColumns={{ xl: "repeat(3, 1fr)", "2xl": "1fr 0.46fr" }}
     gap={{ base: "20px", xl: "20px" }}
@@ -127,15 +190,15 @@ export default function Marketplace(props) {
     <Flex
      flexDirection="column"
      gridArea={{ xl: "1 / 1 / 2 / 3", "2xl": "1 / 1 / 2 / 2" }}
-    >
+    > */}
      {/* <Image
       src="https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_UX67_CR0,0,67,98_AL_.jpg"
       alt="Dan Abramov"
       objectFit='cover'
      /> */}
-     <Banner />
-     <Flex direction="column">
-      <Flex
+     {/* <Banner />
+     <Flex direction="column"> */}
+      {/* <Flex
        mt="45px"
        mb="20px"
        justifyContent="space-between"
@@ -179,8 +242,8 @@ export default function Marketplace(props) {
          Sports
         </Link>
        </Flex>
-      </Flex>
-      <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
+      </Flex> */}
+      {/* <SimpleGrid columns={{ base: 1, md: 3 }} gap="20px">
        <NFT
         name="Abstract Colors"
         author="By Esthera Jackson"
@@ -232,8 +295,8 @@ export default function Marketplace(props) {
         currentbid="0.91 ETH"
         download="#"
        />
-      </SimpleGrid>
-      <Text
+      </SimpleGrid> */}
+      {/* <Text
        mt="45px"
        mb="36px"
        color={textColor}
@@ -242,8 +305,8 @@ export default function Marketplace(props) {
        fontWeight="700"
       >
        Recently Added
-      </Text>
-      <SimpleGrid
+      </Text> */}
+      {/* <SimpleGrid
        columns={{ base: 1, md: 3 }}
        gap="20px"
        mb={{ base: "20px", xl: "0px" }}
@@ -299,21 +362,21 @@ export default function Marketplace(props) {
         currentbid="0.91 ETH"
         download="#"
        />
-      </SimpleGrid>
-     </Flex>
-    </Flex>
-    <Flex
+      </SimpleGrid> */}
+     {/* </Flex>
+    </Flex> */}
+    {/* <Flex
      flexDirection="column"
      gridArea={{ xl: "1 / 3 / 2 / 4", "2xl": "1 / 2 / 2 / 3" }}
-    >
-     <Card px="0px" mb="20px">
+    > */}
+     {/* <Card px="0px" mb="20px">
       <TableTopCreators
        tableData={tableDataTopCreators}
        columnsData={tableColumnsTopCreators}
       />
-     </Card>
-     <Card p="0px">
-      <Flex
+     </Card> */}
+     {/* <Card p="0px"> */}
+      {/* <Flex
        align={{ sm: "flex-start", lg: "center" }}
        justify="space-between"
        w="100%"
@@ -324,9 +387,9 @@ export default function Marketplace(props) {
         History
        </Text>
        <Button variant="action">See all</Button>
-      </Flex>
+      </Flex> */}
 
-      <HistoryItem
+      {/* <HistoryItem
        name="Colorful Heaven"
        author="By Mark Benjamin"
        date="30s ago"
@@ -367,10 +430,10 @@ export default function Marketplace(props) {
        date="3m ago"
        image={Nft6}
        price="0.91 ETH"
-      />
-     </Card>
-    </Flex>
-   </Grid>
+      /> */}
+     {/* </Card> */}
+    {/* </Flex>
+   </Grid> */}
    {/* Delete Product */}
   </Box>
  );
