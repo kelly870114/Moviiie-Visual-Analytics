@@ -25,6 +25,7 @@ export function SearchBar(props) {
  const [movieName, setMovieName] = useState("");
  const [cloud, setCloud] = useState([{ text: "", value: 0 }]);
  const [cloudResult, setcloudResult] = useState([{ text: "", value: 0 }]);
+ const [movieRevenueNum, setMovieRevenueNum] = useState(0);
 
  const fetchProducts = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
@@ -61,6 +62,22 @@ export function SearchBar(props) {
   e.preventDefault();
   const inputValue = document.getElementById("searchInput").value;
   var movie_id = movieid[0][inputValue];
+
+  // Get column chart data
+  const filteredData = products.filter((product) =>
+   product.movie_name.toLowerCase().match(inputValue.toLowerCase())
+  );
+
+  if (filteredData.length == 1) {
+    var budgetnumber = parseInt(filteredData[0].movie_budget.replace(/,/g, ''));
+    var revenuenumber = parseInt(filteredData[0].movie_revenue.replace(/,/g, ''));
+    props.onMovieBudgetClick(budgetnumber, revenuenumber);
+  }
+  else {
+    props.onMovieBudgetClick(0, 0);
+  }
+
+  // Get word cloud data
   if (movie_id <= 5) {
     const wordList = words[movie_id];
     setCloud(cloud.concat(wordList));
@@ -73,7 +90,6 @@ export function SearchBar(props) {
     props.onMovieReviewClick([]);
     props.onMovieReviewResultClick("No Result");
   }
-  // var temp = [{text: "amy", value: 3}, {text: "sherry", value: 7}, {text: "ginny", value: 5}]
  };
 
  return (
