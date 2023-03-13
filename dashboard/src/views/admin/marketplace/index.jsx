@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import ReactWordcloud from "react-wordcloud";
+import ReactApexChart from 'react-apexcharts';
 
 // Chakra imports
 import {
@@ -58,6 +59,24 @@ export default function Marketplace(props) {
  const [movieName, setMovieName] = useState("");
  const [movieCloud, setMovieCloud] = useState("");
  const [cloudResult, setcloudResult] = useState("No Result");
+//  const [movieBudgetNum, setMovieBudgetNum] = useState(0);
+ const [movieRevenueNum, setMovieRevenueNum] = useState(0);
+ const [barSeries, setBarSeries] = useState([
+  {
+    name: "Amount",
+    data: [
+      {
+        x: "Budget",
+        y: 1,
+      },
+      {
+        x: "Revenue",
+        y: 1,
+      },
+    ],
+  },
+]);
+
 
  const handleMovieBudgetChange = (budget) => {
    setMovieBudget(budget);
@@ -71,6 +90,27 @@ export default function Marketplace(props) {
  const handleMovieReviewResultClick = (result) => {
   setcloudResult(result);
  }
+ const handleMovieBudgetClick = (budget, revenue) => {
+  var million = 1000000;
+  budget = budget / million;
+  revenue = revenue / million;
+  setBarSeries([
+    {
+      name: "Amount",
+      data: [
+        {
+          x: "Budget",
+          y: budget,
+        },
+        {
+          x: "Revenue",
+          y: revenue,
+        },
+      ],
+    },
+  ]);
+ }
+
  const fetchProducts = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
   const products = data;
@@ -100,6 +140,59 @@ export default function Marketplace(props) {
   transitionDuration: 1000
 };
 
+const barOptions = {
+  chart: {
+    type: 'bar',
+    height: 500
+  },
+  plotOptions: {
+    bar: {
+      borderRadius: 10,
+      horizontal: false,
+      columnWidth: '55%',
+      endingShape: 'rounded'
+    },
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    show: true,
+    width: 2,
+    colors: ['transparent']
+  },
+  xaxis: {
+    title: {
+      text: 'Budget and Revenue',
+      style: {fontSize: 12, color: "#595959"}
+    },
+    categories: ['Budget', 'Revenue'],
+  },
+  yaxis: {
+    title: {
+      text: 'Amount (USD)',
+      style: {fontSize: 12, color: "#595959"}
+    },
+    labels: {
+      formatter: function (value) {
+        return value + " M";
+      }
+    },
+    min: 0,
+    max: 3000, // At most 3000 millions
+  },
+  fill: {
+    opacity: 1
+  },
+  tooltip: {
+    y: {
+      formatter: function (val) {
+        return "$ " + val + " M"
+      }
+    }
+  }
+};
+
  return (
   <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
     <SimpleGrid
@@ -118,7 +211,7 @@ export default function Marketplace(props) {
     boxShadow={shadow}
    >
     
-     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange} onMovieReviewClick={handleMovieReviewClick} onMovieReviewResultClick={handleMovieReviewResultClick}
+     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange} onMovieReviewClick={handleMovieReviewClick} onMovieReviewResultClick={handleMovieReviewResultClick} onMovieBudgetClick={handleMovieBudgetClick}
      />
     <h2>Movie Budget: {movieBudget}</h2>
     <h2>Movie Name: {movieName}</h2>
@@ -146,6 +239,8 @@ export default function Marketplace(props) {
     />
     <MiniStatistics name="Moive Genre" value="Action" />
    </SimpleGrid>
+   {/* Word Cloud */}
+   
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
     <Card align="center" direction="column" w="100%" {...rest}>
       <Flex align="center" w="100%" px="15px" py="10px">
@@ -173,12 +268,36 @@ export default function Marketplace(props) {
         </Flex>
       </Box>
     </Card>
-      {/* <div>
-          <div style={{ height: 400, width: 600 }}>
-          <ReactWordcloud options={options} onMovieReviewClick={handleMovieReviewClick} words={movieCloud} />
-          </div>
-      </div> */}
    </SimpleGrid>
+
+  {/* Column Chart */}
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Card align="center" direction="column" w="100%" {...rest}>
+      <Flex align="center" w="100%" px="15px" py="10px">
+        <Text
+        me="auto"
+        color={textColor}
+        fontSize="xl"
+        fontWeight="700"
+        lineHeight="100%"
+        >
+        Movie Budget and Revenue
+        </Text>
+      </Flex>
+
+      <Box h="400px" mt="auto">
+        <Flex>
+            <Box>
+              {/* <h1>{movieBudgetNum}</h1> */}
+              <div id="chart">
+                <ReactApexChart options={barOptions} series={barSeries} type="bar" height={350} />
+              </div>
+            </Box>
+        </Flex>
+      </Box>
+    </Card>
+   </SimpleGrid>
+   
 
    {/* Main Fields */}
    {/* <Grid
