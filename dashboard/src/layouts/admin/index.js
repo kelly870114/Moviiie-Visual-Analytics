@@ -159,9 +159,9 @@ export default function Dashboard(props) {
               </Switch>
             </Box>
           ) : null}
-          <Box>
+          {/* <Box>
             <Footer />
-          </Box>
+          </Box> */}
         </Box>
       </SidebarContext.Provider>
     </Box>
