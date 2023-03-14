@@ -13,6 +13,7 @@ import {
  useColorModeValue,
  SimpleGrid,
  Image,
+ GridItem
 } from "@chakra-ui/react";
 // Custom components
 import Banner from "views/admin/marketplace/components/Banner";
@@ -76,7 +77,12 @@ export default function Marketplace(props) {
     ],
   },
 ]);
-
+const [radarSeries, setRadarSeries] =useState([
+  {
+    name: 'Rating',
+    data: [0, 0, 0, 0] // Tomatometer, Tomato audience, IMDb Audience, IMDb critics
+  }
+])
 
  const handleMovieBudgetChange = (budget) => {
    setMovieBudget(budget);
@@ -92,22 +98,31 @@ export default function Marketplace(props) {
  }
  const handleMovieBudgetClick = (budget, revenue) => {
   var million = 1000000;
-  budget = budget / million;
-  revenue = revenue / million;
+  var budgetM = budget / million;
+  var revenueM = revenue / million;
   setBarSeries([
     {
       name: "Amount",
       data: [
         {
           x: "Budget",
-          y: budget,
+          y: budgetM,
         },
         {
           x: "Revenue",
-          y: revenue,
+          y: revenueM,
         },
       ],
     },
+  ]);
+ }
+
+ const handleMovieRatingClick = (rating) => {
+  setRadarSeries([
+    {
+      name: 'Rating',
+      data: rating // Tomatometer, Tomato audience, IMDb Audience, IMDb critics
+    }
   ]);
  }
 
@@ -140,6 +155,7 @@ export default function Marketplace(props) {
   transitionDuration: 1000
 };
 
+// Bar chart options
 const barOptions = {
   chart: {
     type: 'bar',
@@ -193,6 +209,27 @@ const barOptions = {
   }
 };
 
+// Radar chart options
+const radarOptions = {
+  chart: {
+    // height: 350,
+    height: 500,
+    width: '100%',
+    type: 'radar',
+  },
+  xaxis: {
+    categories: ['Tomatometer', ['Tomoto', 'Audience'], ['IMDb', 'Audience'], ['IMDb', 'Critics' ]],
+    // categories: ['1','2','3','4'],
+    labels: {
+      style: {
+        fontSize: "11px",
+        fontWeight: 'bold',
+        colors: ["#595959", "#595959", "#595959", "#595959"],
+      }
+    }
+  }
+}
+
  return (
   <Box pt={{ base: "180px", md: "80px", xl: "80px" }}>
     <SimpleGrid
@@ -211,7 +248,7 @@ const barOptions = {
     boxShadow={shadow}
    >
     
-     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange} onMovieReviewClick={handleMovieReviewClick} onMovieReviewResultClick={handleMovieReviewResultClick} onMovieBudgetClick={handleMovieBudgetClick}
+     <SearchBar onMovieBudgetChange={handleMovieBudgetChange} onMovieNameChange={handleMovieNameChange} onMovieReviewClick={handleMovieReviewClick} onMovieReviewResultClick={handleMovieReviewResultClick} onMovieBudgetClick={handleMovieBudgetClick} onMovieRatingClick={handleMovieRatingClick}
      />
     <h2>Movie Budget: {movieBudget}</h2>
     <h2>Movie Name: {movieName}</h2>
@@ -241,37 +278,64 @@ const barOptions = {
    </SimpleGrid>
    {/* Word Cloud */}
    
-   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-    <Card align="center" direction="column" w="100%" {...rest}>
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">       
+      <Card align="center" direction="column" w="100%" {...rest}>
+        <Flex align="center" w="100%" px="15px" py="10px">
+          <Text
+          me="auto"
+          color={textColor}
+          fontSize="xl"
+          fontWeight="700"
+          lineHeight="100%"
+          >
+          Movie Reviews Wordcloud
+          </Text>
+        </Flex>
+
+        <Box h="400px" mt="auto">
+          <Flex>
+              <Box>
+              <div>
+                <Text onMovieReviewResultClick={handleMovieReviewResultClick}>{cloudResult}</Text>
+                <div style={{ height: 400, width: 600 }}>
+                  <ReactWordcloud options={options} onMovieReviewClick={handleMovieReviewClick} words={movieCloud} />
+                </div>
+            </div>
+              </Box>
+          </Flex>
+        </Box>
+      </Card>
+    </SimpleGrid>
+
+
+  {/* Bar Chart */}
+   {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px"> */}
+   <SimpleGrid
+        mb='20px'
+        columns={{ sm: 1, md: 2 }}
+        spacing={{ base: "20px", xl: "20px" }}>
+   <Card align="center" direction="column" w="100%" {...rest}>
       <Flex align="center" w="100%" px="15px" py="10px">
         <Text
-        me="auto"
-        color={textColor}
-        fontSize="xl"
-        fontWeight="700"
-        lineHeight="100%"
-        >
-        Movie Reviews Wordcloud
+          me="auto"
+          color={textColor}
+          fontSize="xl"
+          fontWeight="700"
+          lineHeight="100%"
+          >
+          Movie Rating from Different Platforms
         </Text>
       </Flex>
-
       <Box h="400px" mt="auto">
-        <Flex>
+        {/* <Flex> */}
             <Box>
-            <div>
-              <Text onMovieReviewResultClick={handleMovieReviewResultClick}>{cloudResult}</Text>
-              <div style={{ height: 400, width: 600 }}>
-                <ReactWordcloud options={options} onMovieReviewClick={handleMovieReviewClick} words={movieCloud} />
+              <div id="chart">
+              <ReactApexChart options={radarOptions} series={radarSeries} type="radar" height={350} />
               </div>
-          </div>
             </Box>
-        </Flex>
+        {/* </Flex> */}
       </Box>
-    </Card>
-   </SimpleGrid>
-
-  {/* Column Chart */}
-   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+  </Card>
     <Card align="center" direction="column" w="100%" {...rest}>
       <Flex align="center" w="100%" px="15px" py="10px">
         <Text
@@ -286,14 +350,14 @@ const barOptions = {
       </Flex>
 
       <Box h="400px" mt="auto">
-        <Flex>
+        {/* <Flex> */}
             <Box>
               {/* <h1>{movieBudgetNum}</h1> */}
               <div id="chart">
                 <ReactApexChart options={barOptions} series={barSeries} type="bar" height={350} />
               </div>
             </Box>
-        </Flex>
+        {/* </Flex> */}
       </Box>
     </Card>
    </SimpleGrid>

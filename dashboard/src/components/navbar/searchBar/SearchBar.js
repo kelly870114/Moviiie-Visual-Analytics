@@ -26,6 +26,8 @@ export function SearchBar(props) {
  const [cloud, setCloud] = useState([{ text: "", value: 0 }]);
  const [cloudResult, setcloudResult] = useState([{ text: "", value: 0 }]);
  const [movieRevenueNum, setMovieRevenueNum] = useState(0);
+ const [movieRating, setMovieRating] = useState([0, 0, 0, 0])
+
 
  const fetchProducts = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
@@ -61,35 +63,60 @@ export function SearchBar(props) {
  const handleClick = (e) => {
   e.preventDefault();
   const inputValue = document.getElementById("searchInput").value;
-  var movie_id = movieid[0][inputValue];
-
-  // Get column chart data
+  var movie_id = movieid[0][inputValue.toUpperCase()];
   const filteredData = products.filter((product) =>
    product.movie_name.toLowerCase().match(inputValue.toLowerCase())
   );
+  setFilteredProducts(filteredData);
 
-  if (filteredData.length == 1) {
+  // Get bar/radar chart data
+  if (movie_id <= 18) {
+    // Bar
     var budgetnumber = parseInt(filteredData[0].movie_budget.replace(/,/g, ''));
     var revenuenumber = parseInt(filteredData[0].movie_revenue.replace(/,/g, ''));
     props.onMovieBudgetClick(budgetnumber, revenuenumber);
+    // Radar
+    var tomacritcs = parseInt(filteredData[0].movie_tomato_tomatometer);
+    var tomaaudience = parseInt(filteredData[0].movie_tomato_audience);
+    var imdbaudience = parseInt(filteredData[0].movie_imdb_rating);
+    var imdbcritcs = parseInt(filteredData[0].movie_imdb_metascore);
+    props.onMovieRatingClick([tomacritcs, tomaaudience, imdbaudience, imdbcritcs]);
+    // Cloud
+    const wordList = words[movie_id];
+    // setCloud(cloud.concat(wordList));
+    setCloud(wordList);
+    setcloudResult("");
+    // props.onMovieReviewClick(cloud.concat(wordList));
+    props.onMovieReviewClick(wordList);
+    props.onMovieReviewResultClick("");
   }
   else {
-    props.onMovieBudgetClick(0, 0);
-  }
-
-  // Get word cloud data
-  if (movie_id <= 5) {
-    const wordList = words[movie_id];
-    setCloud(cloud.concat(wordList));
-    setcloudResult("");
-    props.onMovieReviewClick(cloud.concat(wordList));
-    props.onMovieReviewResultClick("");
-  } else {
+    // Bar
+    props.onMovieBudgetClick(1, 1);
+    // Radar
+    props.onMovieRatingClick([0, 0, 0, 0]);
+    // Cloud
     setCloud([]);
     setcloudResult("No Result");
     props.onMovieReviewClick([]);
     props.onMovieReviewResultClick("No Result");
   }
+
+  // Get word cloud data
+  // if (movie_id <= 18) {
+  //   const wordList = words[movie_id];
+  //   // setCloud(cloud.concat(wordList));
+  //   setCloud(wordList);
+  //   setcloudResult("");
+  //   // props.onMovieReviewClick(cloud.concat(wordList));
+  //   props.onMovieReviewClick(wordList);
+  //   props.onMovieReviewResultClick("");
+  // } else {
+  //   setCloud([]);
+  //   setcloudResult("No Result");
+  //   props.onMovieReviewClick([]);
+  //   props.onMovieReviewResultClick("No Result");
+  // }
  };
 
  return (
