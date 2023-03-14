@@ -1,10 +1,23 @@
 export default[
 {
-    "Ant-Man and the Wasp: Quantumania":0,
-    "The Banshees of Inisherin":1,
-    "Everything Everywhere All at Once":2,
-    "Once Upon a Time in Hollywood":3,
-    "Knives Out":4,
-    "The Wolf of Wall Street":5
+    "CASINO": 0,
+    "JOKER": 1,
+    "SLEEPERS": 2,
+    "AVATAR": 3,
+    "IRON MAN": 4,
+    "THE HUNGER GAMES": 5,
+    "CINDERELLA": 6,
+    "TITANIC": 7,
+    "TWILIGHT": 8,
+    "KNIVES OUT": 9,
+    "ANT-MAN": 10,
+    "BABYLON": 11,
+    "GREEN BOOK": 12,
+    "LIFE": 13,
+    "ALIEN": 14,
+    "GET OUT": 15,
+    "DRIVE": 16,
+    "OBLIVION": 17,
+    "PREY": 18
 }
 ];
