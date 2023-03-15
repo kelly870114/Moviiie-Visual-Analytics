@@ -103,9 +103,9 @@ export function SearchBar(props) {
    props.onMovieRatingClick([0, 0, 0, 0]);
    // Cloud
    setCloud([]);
-   setcloudResult("No Result");
+   setcloudResult("");
    props.onMovieReviewClick([]);
-   props.onMovieReviewResultClick("No Result");
+   props.onMovieReviewResultClick("");
   }
 
   // Get word cloud data

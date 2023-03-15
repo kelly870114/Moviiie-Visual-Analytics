@@ -5,7 +5,6 @@ import { Flex, useColorModeValue } from "@chakra-ui/react";
 
 // Custom components
 import Logo from "../../../assets/img/layout/Moviiie.png";
-import { HorizonLogo } from "components/icons/Icons";
 import { HSeparator } from "components/separator/Separator";
 
 export function SidebarBrand() {
@@ -14,9 +13,8 @@ export function SidebarBrand() {
 
   return (
     <Flex align='center' direction='column'>
-      <img src={Logo} className="responsive" style={{ backgroundColor: "#3E2BF1", borderRadius: 10, width: '40%', padding: 10}}></img>
+      <img src={Logo} className="responsive" color={logoColor} style={{ backgroundColor: "#3E2BF1", borderRadius: 10, width: '40%', padding: 10}}></img>
       <br/>
-      {/* <HorizonLogo h='26px' w='175px' my='32px' color={logoColor} /> */}
       <HSeparator mb='20px' />
     </Flex>
   );
