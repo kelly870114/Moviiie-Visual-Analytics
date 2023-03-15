@@ -27,7 +27,7 @@ export default function Settings() {
   };
 
   return (
-    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+    <Box pt={{ base: "130px", md: "100px", xl: "100px" }}>
       
       <Tableau
         url="https://public.tableau.com/views/heatmap_moviestar_top20/Top20MovieStarsConnection?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
@@ -38,8 +38,14 @@ export default function Settings() {
         options={options}
       />
 
+
       <Tableau
         url="https://public.tableau.com/views/barchart_directorProfit/ProfitForTop20Directors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
+        options={options}
+      />
+
+      <Tableau
+        url="https://public.tableau.com/views/radarchart_rating2/GenreRating?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
         options={options}
       />
 
@@ -49,7 +55,7 @@ export default function Settings() {
         columns={{ sm: 1, md: 2 }}
         spacing={{ base: "20px", xl: "20px" }}>
 
-        <DevelopmentTable
+        {/* <DevelopmentTable
           columnsData={columnsDataDevelopment}
           tableData={tableDataDevelopment}
         />
@@ -61,7 +67,7 @@ export default function Settings() {
         <ComplexTable
           columnsData={columnsDataComplex}
           tableData={tableDataComplex}
-        />
+        /> */}
       </SimpleGrid>
     </Box>
   );
