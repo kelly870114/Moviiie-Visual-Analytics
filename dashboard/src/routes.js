@@ -5,6 +5,7 @@ import {
   MdBarChart,
   MdPerson,
   MdHome,
+  MdMovie,
   MdLock,
   MdOutlineShoppingCart,
 } from "react-icons/md";
@@ -25,12 +26,12 @@ const routes = [
     component: MainDashboard,
   },
   {
-    name: "Movie",
+    name: "Movie/ TV Shows",
     layout: "/admin",
     path: "/nft-marketplace",
     icon: (
       <Icon
-        as={MdOutlineShoppingCart}
+        as={MdMovie}
         width='20px'
         height='20px'
         color='inherit'
