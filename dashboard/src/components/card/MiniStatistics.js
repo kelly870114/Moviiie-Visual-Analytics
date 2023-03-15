@@ -7,6 +7,7 @@ import {
  StatNumber,
  useColorModeValue,
  Text,
+ Input,
 } from "@chakra-ui/react";
 // Custom components
 import Card from "components/card/Card.js";
@@ -41,22 +42,12 @@ export default function Default(props) {
      <StatNumber
       color={textColor}
       fontSize={{
-       base: "2xl",
+       base: "xl",
       }}
      >
-      <input type="text" value={value} onChange={onMovieNameChange} />
-      {/* {value} */}
+      <input  value={value} onChange={onMovieNameChange} />
+      
      </StatNumber>
-     {growth ? (
-      <Flex align="center">
-       <Text color="green.500" fontSize="xs" fontWeight="700" me="5px">
-        {growth}
-       </Text>
-       <Text color="secondaryGray.600" fontSize="xs" fontWeight="400">
-        since last month
-       </Text>
-      </Flex>
-     ) : null}
     </Stat>
     <Flex ms="auto" w="max-content">
      {endContent}
