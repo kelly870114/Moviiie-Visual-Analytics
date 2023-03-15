@@ -32,10 +32,12 @@ def get_movie_overview():
                             'movie_poster': movies[i][1],
                             'movie_budget': movies[i][2],
                             'movie_revenue': movies[i][4],
+                            'movie_genre': movies[i][5],
                             'movie_tomato_audience': movies[i][6],
                             'movie_tomato_tomatometer': movies[i][7],
                             'movie_imdb_rating': movies[i][9],
-                            'movie_imdb_metascore': movies[i][10]
+                            'movie_imdb_metascore': movies[i][10],
+                            'movie_actors': [movies[i][13],movies[i][14],movies[i][15]],
                             })
 
     
