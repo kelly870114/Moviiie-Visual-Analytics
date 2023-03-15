@@ -74,7 +74,22 @@ export default function UserReports() {
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
     <Tableau url="https://public.tableau.com/views/heatmap_moviestar_top20/Top20MovieStarsConnection?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link" />
    </SimpleGrid>
-   <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
+   
+
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Tableau url="https://public.tableau.com/views/barchart_actorProfit/ProfitForTop20Actors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link" />
+   </SimpleGrid>
+
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Tableau url="https://public.tableau.com/views/barchart_directorProfit/ProfitForTop20Directors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link" />
+   </SimpleGrid>
+
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Tableau url="https://public.tableau.com/views/radarchart_rating2/GenreRating?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link" />
+   </SimpleGrid>
+
+
+   {/* <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
     <Tableau
      url="https://public.tableau.com/views/barchart_actorProfit/ProfitForTop20Actors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
      options={options}
@@ -83,7 +98,7 @@ export default function UserReports() {
      url="https://public.tableau.com/views/barchart_directorProfit/ProfitForTop20Directors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
      options={options}
     />
-   </SimpleGrid>
+   </SimpleGrid> */}
    {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
     <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} />
     <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
