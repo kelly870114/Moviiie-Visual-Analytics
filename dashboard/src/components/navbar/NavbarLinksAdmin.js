@@ -54,14 +54,14 @@ export default function HeaderLinks(props) {
    borderRadius="30px"
    boxShadow={shadow}
   >
-   <SearchBar
+   {/* <SearchBar
     mb={secondary ? { base: "10px", md: "unset" } : "unset"}
     me="10px"
     borderRadius="30px"
-   />
+   /> */}
 
    <SidebarResponsive routes={routes} />
-   <Menu>
+   {/* <Menu>
     <MenuButton p="0px">
      <Icon
       mt="6px"
@@ -118,7 +118,7 @@ export default function HeaderLinks(props) {
       </MenuItem>
      </Flex>
     </MenuList>
-   </Menu>
+   </Menu> */}
 
    <Menu>
     <MenuButton p="0px">
