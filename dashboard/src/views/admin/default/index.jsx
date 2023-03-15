@@ -11,36 +11,10 @@ import {
  SimpleGrid,
  useColorModeValue,
 } from "@chakra-ui/react";
-// Assets
-import Usa from "assets/img/dashboards/usa.png";
-// Custom components
-import MiniCalendar from "components/calendar/MiniCalendar";
-import MiniStatistics from "components/card/MiniStatistics";
-import IconBox from "components/icons/IconBox";
 import { useState, React } from "react";
-import {
- MdAddTask,
- MdAttachMoney,
- MdBarChart,
- MdFileCopy,
-} from "react-icons/md";
-import CheckTable from "views/admin/default/components/CheckTable";
-import ComplexTable from "views/admin/default/components/ComplexTable";
-import DailyTraffic from "views/admin/default/components/DailyTraffic";
-import PieCard from "views/admin/default/components/PieCard";
-import OverviewBubble from "views/admin/default/components/OverviewBubble";
-import OverviewWordCloud from "views/admin/default/components/OverviewWordCloud";
-import Tasks from "views/admin/default/components/Tasks";
-import TotalSpent from "views/admin/default/components/TotalSpent";
-import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
-import {
- columnsDataCheck,
- columnsDataComplex,
-} from "views/admin/default/variables/columnsData";
-import tableDataCheck from "views/admin/default/variables/tableDataCheck.json";
-import tableDataComplex from "views/admin/default/variables/tableDataComplex.json";
 import axios from "axios";
 import Tableau from "tableau-react";
+import TableauEmbed from "../../../components/charts/TableauEmbed";
 
 export default function UserReports() {
  // Chakra Color Mode
@@ -80,10 +54,16 @@ export default function UserReports() {
  return (
   <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-    <Tableau
-     url="https://public.tableau.com/views/MoviesOverview_16784935676620/MoviesOverview?:language=zh-TW&publish=yes&:display_count=n&:origin=viz_share_link"
+    {/* <Tableau
+     url="https://public.tableau.com/views/MoviesOverview_16784935676620/MoviesOverview"
      options={options}
-    />
+    /> */}
+    <TableauEmbed/>
+    {/* <Tableau
+     url="https://public.tableau.com/views/MoviesOverview_16784935676620/javascripts/api/tableau-version.min.js"
+     options={options}
+    /> */}
+    
    </SimpleGrid>
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
     <Tableau
@@ -91,11 +71,20 @@ export default function UserReports() {
      options={options}
     />
    </SimpleGrid>
-   <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
-    <TotalSpent />
-    <WeeklyRevenue />
+   <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Tableau url="https://public.tableau.com/views/heatmap_moviestar_top20/Top20MovieStarsConnection?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link" />
    </SimpleGrid>
-   <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
+   <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px" mb="20px">
+    <Tableau
+     url="https://public.tableau.com/views/barchart_actorProfit/ProfitForTop20Actors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
+     options={options}
+    />
+    <Tableau
+     url="https://public.tableau.com/views/barchart_directorProfit/ProfitForTop20Directors?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"
+     options={options}
+    />
+   </SimpleGrid>
+   {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 2 }} gap="20px" mb="20px">
     <CheckTable columnsData={columnsDataCheck} tableData={tableDataCheck} />
     <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap="20px">
      <DailyTraffic />
@@ -111,7 +100,7 @@ export default function UserReports() {
      <Tasks />
      <MiniCalendar h="100%" minW="100%" selectRange={false} />
     </SimpleGrid>
-   </SimpleGrid>
+   </SimpleGrid> */}
   </Box>
  );
 }
