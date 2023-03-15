@@ -13,7 +13,6 @@ import {
 // Admin Imports
 import MainDashboard from "views/admin/default";
 import NFTMarketplace from "views/admin/marketplace";
-import DataTables from "views/admin/dataTables";
 // import RTL from "views/admin/rtl";
 
 
@@ -40,21 +39,7 @@ const routes = [
     component: NFTMarketplace,
     secondary: true,
   },
-  // {
-  //   name: "Data Tables",
-  //   layout: "/admin",
-  //   icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-  //   path: "/data-tables",
-  //   component: DataTables,
-  // },
   
-  // {
-  //   name: "RTL Admin",
-  //   layout: "/rtl",
-  //   path: "/rtl-default",
-  //   icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-  //   component: RTL,
-  // },
 ];
 
 export default routes;
