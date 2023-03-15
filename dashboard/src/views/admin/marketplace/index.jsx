@@ -15,33 +15,10 @@ import {
  Image,
  GridItem,
 } from "@chakra-ui/react";
-// Custom components
-import Banner from "views/admin/marketplace/components/Banner";
-import TableTopCreators from "views/admin/marketplace/components/TableTopCreators";
-import HistoryItem from "views/admin/marketplace/components/HistoryItem";
-import NFT from "components/card/NFT";
 import Card from "components/card/Card.js";
-
-// Assets
-// import Nft1 from "assets/img/nfts/Nft1.png";
-// import Nft2 from "assets/img/nfts/Nft2.png";
-// import Nft3 from "assets/img/nfts/Nft3.png";
-// import Nft4 from "assets/img/nfts/Nft4.png";
-// import Nft5 from "assets/img/nfts/Nft5.png";
-// import Nft6 from "assets/img/nfts/Nft6.png";
-// import Avatar1 from "assets/img/avatars/avatar1.png";
-// import Avatar2 from "assets/img/avatars/avatar2.png";
-// import Avatar3 from "assets/img/avatars/avatar3.png";
-// import Avatar4 from "assets/img/avatars/avatar4.png";
-// import Usa from "assets/img/dashboards/usa.png";
 import MiniStatistics from "components/card/MiniStatistics";
-// import IconBox from "components/icons/IconBox";
-// import tableDataTopCreators from "views/admin/marketplace/variables/tableDataTopCreators.json";
-// import { tableColumnsTopCreators } from "views/admin/marketplace/variables/tableColumnsTopCreators";
 import axios from "axios";
-import AdminNavbarLinks from "components/navbar/NavbarLinksAdmin";
 import { SearchBar } from "components/navbar/searchBar/SearchBar";
-import WordCloud from "components/charts/WordCloud";
 
 export default function Marketplace(props) {
  // Chakra Color Mode
@@ -60,9 +37,7 @@ export default function Marketplace(props) {
  const [movieActors, setMovieActors] = useState([]);
  const [movieGenre, setMovieGenre] = useState("");
  const [movieCloud, setMovieCloud] = useState("");
- const [cloudResult, setcloudResult] = useState("No Result");
- //  const [movieBudgetNum, setMovieBudgetNum] = useState(0);
- const [movieRevenueNum, setMovieRevenueNum] = useState(0);
+ const [cloudResult, setcloudResult] = useState("");
  const [barSeries, setBarSeries] = useState([
   {
    name: "Amount",
@@ -142,7 +117,6 @@ export default function Marketplace(props) {
 
  // WordCloud options
  const { ...rest } = props;
- //  const textColor = useColorModeValue("secondaryGray.900", "white");
  const options = {
   colors: ["#359de6", "#fc9f4c", "#89c789", "#d98080", "#b584e0", "#d1a097"],
   enableTooltip: true,
@@ -326,7 +300,6 @@ export default function Marketplace(props) {
    </SimpleGrid>
 
    {/* Bar Chart */}
-   {/* <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px"> */}
    <SimpleGrid
     mb="20px"
     columns={{ sm: 1, md: 2 }}
@@ -345,7 +318,6 @@ export default function Marketplace(props) {
       </Text>
      </Flex>
      <Box h="400px" mt="auto">
-      {/* <Flex> */}
       <Box>
        <div id="chart">
         <ReactApexChart
@@ -356,7 +328,6 @@ export default function Marketplace(props) {
         />
        </div>
       </Box>
-      {/* </Flex> */}
      </Box>
     </Card>
     <Card align="center" direction="column" w="100%" {...rest}>
@@ -373,9 +344,7 @@ export default function Marketplace(props) {
      </Flex>
 
      <Box h="400px" mt="auto">
-      {/* <Flex> */}
       <Box>
-       {/* <h1>{movieBudgetNum}</h1> */}
        <div id="chart">
         <ReactApexChart
          options={barOptions}
@@ -385,7 +354,6 @@ export default function Marketplace(props) {
         />
        </div>
       </Box>
-      {/* </Flex> */}
      </Box>
     </Card>
    </SimpleGrid>

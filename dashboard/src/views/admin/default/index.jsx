@@ -14,7 +14,6 @@ import {
 import { useState, React } from "react";
 import axios from "axios";
 import Tableau from "tableau-react";
-import TableauEmbed from "../../../components/charts/TableauEmbed";
 
 export default function UserReports() {
  // Chakra Color Mode
@@ -54,15 +53,10 @@ export default function UserReports() {
  return (
   <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-    {/* <Tableau
+    <Tableau
      url="https://public.tableau.com/views/MoviesOverview_16784935676620/MoviesOverview"
      options={options}
-    /> */}
-    <TableauEmbed/>
-    {/* <Tableau
-     url="https://public.tableau.com/views/MoviesOverview_16784935676620/javascripts/api/tableau-version.min.js"
-     options={options}
-    /> */}
+    />
     
    </SimpleGrid>
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
