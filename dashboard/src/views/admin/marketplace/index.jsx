@@ -58,6 +58,7 @@ export default function Marketplace(props) {
  const { secondary } = props;
  const [movieName, setMovieName] = useState("");
  const [movieActors, setMovieActors] = useState([]);
+ const [movieGenre, setMovieGenre] = useState("");
  const [movieCloud, setMovieCloud] = useState("");
  const [cloudResult, setcloudResult] = useState("No Result");
  //  const [movieBudgetNum, setMovieBudgetNum] = useState(0);
@@ -89,6 +90,9 @@ export default function Marketplace(props) {
  };
  const handleMovieActorChange = (actors) => {
   setMovieActors(actors);
+ };
+ const handleMovieGenreChange = (genre) => {
+  setMovieGenre(genre);
  };
  const handleMovieReviewClick = (words) => {
   setMovieCloud(words);
@@ -255,6 +259,7 @@ export default function Marketplace(props) {
      <SearchBar
       onMovieNameChange={handleMovieNameChange}
       onMovieActorChange={handleMovieActorChange}
+      onMovieGenreChange={handleMovieGenreChange}
       onMovieReviewClick={handleMovieReviewClick}
       onMovieReviewResultClick={handleMovieReviewResultClick}
       onMovieBudgetClick={handleMovieBudgetClick}
@@ -277,7 +282,11 @@ export default function Marketplace(props) {
      value={movieActors}
      onMovieActorChange={handleMovieActorChange}
     />
-    <MiniStatistics name="Moive Genre" value="Action" />
+    <MiniStatistics
+     name="Moive Genre"
+     value={movieGenre}
+     onMovieGenreChange={handleMovieGenreChange}
+    />
    </SimpleGrid>
    {/* Word Cloud */}
 
