@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import {
+ filter,
  IconButton,
  Input,
  InputGroup,
@@ -23,6 +24,7 @@ export function SearchBar(props) {
  const [filteredProducts, setFilteredProducts] = useState([]);
  const [movieName, setMovieName] = useState("");
  const [movieActors, setMovieActors] = useState([]);
+ const [movieGenre, setMovieGenre] = useState("");
  const [cloud, setCloud] = useState([{ text: "", value: 0 }]);
  const [cloudResult, setcloudResult] = useState([{ text: "", value: 0 }]);
  const [movieRevenueNum, setMovieRevenueNum] = useState(0);
@@ -59,8 +61,10 @@ export function SearchBar(props) {
    // Movie Information
    setMovieActors(filteredData[0].movie_actors);
    setMovieName(filteredData[0].movie_name);
+   setMovieGenre(filteredData[0].movieGenre);
    props.onMovieNameChange(filteredData[0].movie_name);
    props.onMovieActorChange(filteredData[0].movie_actors);
+   props.onMovieGenreChange(filteredData[0].movie_genre);
    // Bar
    var budgetnumber = parseInt(filteredData[0].movie_budget.replace(/,/g, ""));
    var revenuenumber = parseInt(
@@ -89,8 +93,10 @@ export function SearchBar(props) {
   } else {
    setMovieName("");
    setMovieActors("");
+   setMovieGenre("");
    props.onMovieNameChange("");
    props.onMovieActorChange("");
+   props.onMovieGenreChange("");
    // Bar
    props.onMovieBudgetClick(1, 1);
    // Radar
