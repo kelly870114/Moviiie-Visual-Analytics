@@ -38,16 +38,17 @@ def get_movie_overview():
                             'movie_imdb_rating': movies[i][9],
                             'movie_imdb_metascore': movies[i][10],
                             'movie_actors': [movies[i][13],movies[i][14],movies[i][15]],
+                            'movie_sentiment_score': movies[i][18]
                             })
 
     
     return jsonify(movie_items)
 
-@app.route('/getMovieReviews')
-def get_movie_review():
-    wordcloud = process_reviews()
-    wordcloudJSON = []
-    for word in wordcloud: # Modify to json format (for data export)
-        wordcloudJSON.append({"text": word, "value": wordcloud[word]})
+# @app.route('/getMovieReviews')
+# def get_movie_review():
+#     wordcloud = process_reviews()
+#     wordcloudJSON = []
+#     for word in wordcloud: # Modify to json format (for data export)
+#         wordcloudJSON.append({"text": word, "value": wordcloud[word]})
     
-    return wordcloudJSON
+#     return wordcloudJSON
