@@ -29,6 +29,7 @@ export function SearchBar(props) {
  const [cloudResult, setcloudResult] = useState([{ text: "", value: 0 }]);
  const [movieRevenueNum, setMovieRevenueNum] = useState(0);
  const [movieRating, setMovieRating] = useState([0, 0, 0, 0]);
+ const [movieSentiment, setMovieSentiment] = useState(-2);
 
  const fetchProducts = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
@@ -57,7 +58,7 @@ export function SearchBar(props) {
   setFilteredProducts(filteredData);
 
   // Get bar/radar chart data
-  if (movie_id <= 18) {
+  if (movie_id <= 38) {
    // Movie Information
    setMovieActors(filteredData[0].movie_actors);
    setMovieName(filteredData[0].movie_name);
@@ -84,12 +85,14 @@ export function SearchBar(props) {
    ]);
    // Cloud
    const wordList = words[movie_id];
-   // setCloud(cloud.concat(wordList));
    setCloud(wordList);
    setcloudResult("");
-   // props.onMovieReviewClick(cloud.concat(wordList));
    props.onMovieReviewClick(wordList);
    props.onMovieReviewResultClick("");
+   // Sentiment
+   var sentimentScore = parseFloat(filteredData[0].movie_sentiment_score);
+   setMovieSentiment(sentimentScore);
+   props.onMovieSentimentClick(sentimentScore);
   } else {
    setMovieName("");
    setMovieActors("");
@@ -106,23 +109,10 @@ export function SearchBar(props) {
    setcloudResult("");
    props.onMovieReviewClick([]);
    props.onMovieReviewResultClick("");
+   // Sentiment
+   setMovieSentiment(-2)
+   props.onMovieSentimentClick(-2);
   }
-
-  // Get word cloud data
-  // if (movie_id <= 18) {
-  //   const wordList = words[movie_id];
-  //   // setCloud(cloud.concat(wordList));
-  //   setCloud(wordList);
-  //   setcloudResult("");
-  //   // props.onMovieReviewClick(cloud.concat(wordList));
-  //   props.onMovieReviewClick(wordList);
-  //   props.onMovieReviewResultClick("");
-  // } else {
-  //   setCloud([]);
-  //   setcloudResult("No Result");
-  //   props.onMovieReviewClick([]);
-  //   props.onMovieReviewResultClick("No Result");
-  // }
  };
 
  return (
