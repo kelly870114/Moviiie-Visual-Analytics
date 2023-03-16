@@ -45,7 +45,7 @@ export default function Default(props) {
        base: "xl",
       }}
      >
-      <input value={value} onChange={onMovieNameChange} style={{width: "350px"}}/>
+      <input value={value} onChange={onMovieNameChange} style={{width: "100%"}}/>
       
      </StatNumber>
     </Stat>
