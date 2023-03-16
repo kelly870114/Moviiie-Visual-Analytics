@@ -18,6 +18,26 @@ export default[
     "GET OUT": 15,
     "DRIVE": 16,
     "OBLIVION": 17,
-    "PREY": 18
+    "PREY": 18,
+    "FIFTY SHADES OF GREY": 19,
+    "FIFTY SHADES FREED": 20,
+    "FIFTY SHADES DARKER": 21,
+    "AFTER": 22,
+    "WONDER WOMAN 1984": 23,
+    "STRANGE WORLD": 24,
+    "HALLOWEEN ENDS": 25,
+    "WHITE NOISE": 26,
+    "THE MATRIX RESURRECTIONS": 27,
+    "HELLRAISER": 28,
+    "ETERNALS": 29,
+    "THE BLUE LAGOON": 30,
+    "THE LOST CITY": 31,
+    "TICKET TO PARADISE": 32,
+    "JUST GO WITH IT": 33,
+    "LEAP YEAR": 34,
+    "BLACK ADAM": 35,
+    "GODZILLA VS. KONG": 36,
+    "THOR: LOVE AND THUNDER": 37,
+    "UNCHARTED": 38
 }
 ];

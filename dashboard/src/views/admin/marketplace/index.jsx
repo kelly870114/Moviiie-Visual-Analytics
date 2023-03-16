@@ -1,6 +1,11 @@
 import { React, useState, useEffect } from "react";
 import ReactWordcloud from "react-wordcloud";
 import ReactApexChart from "react-apexcharts";
+import {
+    CiFaceSmile,
+    CiFaceMeh,
+    CiFaceFrown
+} from "react-icons/ci";
 
 // Chakra imports
 import {
@@ -14,6 +19,7 @@ import {
  SimpleGrid,
  Image,
  GridItem,
+ Icon
 } from "@chakra-ui/react";
 import Card from "components/card/Card.js";
 import MiniStatistics from "components/card/MiniStatistics";
@@ -38,6 +44,8 @@ export default function Marketplace(props) {
  const [movieGenre, setMovieGenre] = useState("");
  const [movieCloud, setMovieCloud] = useState("");
  const [cloudResult, setcloudResult] = useState("");
+//  const [movieSentiment, setMovieSentiment] = useState(0);
+ const [sentimentColor, setSentimentColor] = useState(['#e6e6e8','#e6e6e8','#e6e6e8']);
  const [barSeries, setBarSeries] = useState([
   {
    name: "Amount",
@@ -105,6 +113,30 @@ export default function Marketplace(props) {
   ]);
  };
 
+ const handleMovieSentimentClick = (score) => {
+    // Green #26de6d positive
+    // Orange #f7a13e neutral
+    // Red #f73e3e negative
+    // Grey #e6e6e8 no-select
+    const positiveColor = "#26de6d";
+    const neutralColor = "#f7a13e";
+    const negativeColor = "#f73e3e";
+    const noColor = "#e6e6e8";
+
+    if (score == -2) { // No result
+        setSentimentColor([noColor, noColor, noColor]);
+    }
+    else if (score >= 0.9995){ // Positive
+        setSentimentColor([positiveColor, noColor, noColor]);
+    }
+    else if (score <= -0.9900){ // Negative
+        setSentimentColor([noColor, noColor, negativeColor]);
+    }
+    else { // Neutral
+        setSentimentColor([noColor, neutralColor, noColor]);
+    }
+ }
+
  const fetchProducts = async () => {
   const { data } = await axios.get("http://127.0.0.1:5000/getMovieOverview");
   const products = data;
@@ -122,7 +154,7 @@ export default function Marketplace(props) {
   enableTooltip: true,
   deterministic: false,
   fontFamily: "impact",
-  fontSizes: [5, 60],
+  fontSizes: [15, 70],
   fontStyle: "normal",
   fontWeight: "normal",
   padding: 1,
@@ -202,7 +234,6 @@ export default function Marketplace(props) {
     ["IMDb", "Audience"],
     ["IMDb", "Critics"],
    ],
-   // categories: ['1','2','3','4'],
    labels: {
     style: {
      fontSize: "11px",
@@ -238,6 +269,7 @@ export default function Marketplace(props) {
       onMovieReviewResultClick={handleMovieReviewResultClick}
       onMovieBudgetClick={handleMovieBudgetClick}
       onMovieRatingClick={handleMovieRatingClick}
+      onMovieSentimentClick={handleMovieSentimentClick}
      />
     </Flex>
    </SimpleGrid>
@@ -262,8 +294,48 @@ export default function Marketplace(props) {
      onMovieGenreChange={handleMovieGenreChange}
     />
    </SimpleGrid>
-   {/* Word Cloud */}
+    {/* Sentiment */}
+    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
+    <Card align="center" direction="column" w="100%" {...rest}>
+     <Flex align="center" w="100%" px="15px" py="10px">
+      <Text
+       me="auto"
+       color={textColor}
+       fontSize="xl"
+       fontWeight="700"
+       lineHeight="100%"
+      >
+       Movie Reviews Sentiment Result
+      </Text>
+      <Flex width="22%">
+        <Card width="90%" border="4px" borderColor={sentimentColor[0]}>
+            <Flex align="center">
+            <Icon as={CiFaceSmile} mr={4} width='50px' height='50px' color={sentimentColor[0]} viewBox="0 0 25 15"/>
+            <Text fontSize='xl' as='b' color={sentimentColor[0]}>POSITIVE</Text>
+            </Flex>
+        </Card>
+      </Flex>
+      <Flex width="22%">
+        <Card width="90%" border="4px" borderColor={sentimentColor[1]}>
+            <Flex align="center">
+            <Icon as={CiFaceMeh} mr={4} width='50px' height='50px' color={sentimentColor[1]} viewBox="0 0 25 15"/>
+            <Text fontSize='xl' as='b' color={sentimentColor[1]}>NEUTRAL</Text>
+            </Flex>
+        </Card>
+      </Flex>
+      <Flex width="23%">
+        <Card width="90%" border="4px" borderColor={sentimentColor[2]}>
+            <Flex align="center">
+            <Icon as={CiFaceFrown} mr={4} width='50px' height='50px' color={sentimentColor[2]} viewBox="0 0 25 15"/>
+            <Text fontSize='xl' as='b' color={sentimentColor[2]}>NEGATIVE</Text>
+            </Flex>
+        </Card>
+      </Flex>
+     </Flex>
+    </Card>
+   </SimpleGrid>
 
+   {/* Word Cloud */}
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
     <Card align="center" direction="column" w="100%" {...rest}>
      <Flex align="center" w="100%" px="15px" py="10px">
@@ -285,7 +357,7 @@ export default function Marketplace(props) {
          <Text onMovieReviewResultClick={handleMovieReviewResultClick}>
           {cloudResult}
          </Text>
-         <div style={{ height: 400, width: 600 }}>
+         <div style={{ height: 400, width: 1000 }}>
           <ReactWordcloud
            options={options}
            onMovieReviewClick={handleMovieReviewClick}
