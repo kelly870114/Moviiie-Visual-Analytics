@@ -79,7 +79,7 @@ export default function UserReports() {
    </SimpleGrid>
 
    <SimpleGrid columns={{ base: 1, md: 1, xl: 1 }} gap="20px" mb="20px">
-    <Tableau url="https://public.tableau.com/views/radarchart_rating2/GenreRating?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link" />
+    <Tableau url="https://public.tableau.com/shared/96KXJYDFM?:display_count=n&:origin=viz_share_link" />
    </SimpleGrid>
 
 
