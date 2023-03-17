@@ -55,7 +55,7 @@ export default function Marketplace(props) {
      y: 1,
     },
     {
-     x: "Revenue",
+     x: "Gross",
      y: 1,
     },
    ],
@@ -96,7 +96,7 @@ export default function Marketplace(props) {
       y: budgetM,
      },
      {
-      x: "Revenue",
+      x: "Gross",
       y: revenueM,
      },
     ],
@@ -189,10 +189,10 @@ export default function Marketplace(props) {
   },
   xaxis: {
    title: {
-    text: "Budget and Revenue",
+    text: "Budget and Gross",
     style: { fontSize: 12, color: "#595959" },
    },
-   categories: ["Budget", "Revenue"],
+   categories: ["Budget", "Gross"],
   },
   yaxis: {
    title: {
@@ -411,7 +411,7 @@ export default function Marketplace(props) {
        fontWeight="700"
        lineHeight="100%"
       >
-       Movie Budget and Revenue
+       Movie Budget and Gross
       </Text>
      </Flex>
 
