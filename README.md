@@ -5,20 +5,20 @@ In this project, we use React.js with Flask, along with Tableau API.
 ```
 pip3 install -r requirements.txt
 ```
-2. Install packages
+2. Install packages under `/moviiie-visual-analytics/dashboard`
 ```
 cd dashboard
 npm install
 ```
 
-## Run the Environment
-1. Run Flask
+## Run the Environment 
+1. Run Flask under `/moviiie-visual-analytics/server`
 ```
 cd server
 flask run 
 ```
 
-2. Run React App
+2. Run React App under `/moviiie-visual-analytics/dashboard`
 ```
 cd dashboard
 npm run start
